@@ -394,16 +394,16 @@ int ScriptContext::setup_bindings() {
 extern "C" __declspec(dllexport) int luaopen_LuaVR(lua_State* L) {
     luaL_checkversion(L);
 
-    ScriptContext::log("Initializing LuaVR...");
+    ScriptContext::log("正在初始化 LuaVR...");
 
     script_context = std::make_unique<ScriptContext>(L);
 
     if (!script_context->valid()) {
-        ScriptContext::log("LuaVR failed to initialize! Make sure to inject VR first!");
+        ScriptContext::log("LuaVR 初始化失败！确保先注入 VR！");
         return 0;
     }
 
-    ScriptContext::log("LuaVR initialized!");
+    ScriptContext::log("LuaVR 初始化！");
 
     return script_context->setup_bindings();
 }
