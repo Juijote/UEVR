@@ -1352,8 +1352,8 @@ void Framework::draw_ui() {
                 draw_about();
             }
 
-            ImGui::TextWrapped("Framework is currently initializing...");
-            ImGui::TextWrapped("This menu will close after initialization if you have the remember option enabled.");
+            ImGui::TextWrapped("框架目前正在初始化...");
+            ImGui::TextWrapped("如果启用了记住选项，则此菜单将在初始化后关闭");
         } else if (!m_error.empty()) {
             ImGui::EndChild();
 
@@ -1362,7 +1362,7 @@ void Framework::draw_ui() {
                 draw_about();
             }
 
-            ImGui::TextWrapped("Framework error: %s", m_error.c_str());
+            ImGui::TextWrapped("框架错误: %s", m_error.c_str());
         }
 
         ImGui::EndTable();
@@ -1391,10 +1391,12 @@ void Framework::draw_ui() {
 }
 
 void Framework::draw_about() {
-    ImGui::Text("Author: praydog");
+    ImGui::Text("作者: praydog");
     ImGui::Text("Unreal Engine VR");
     ImGui::Text("https://github.com/praydog/UEVR");
     ImGui::Text("http://praydog.com");
+    ImGui::Text("汉化翻译：Juij");
+    ImGui::Text("更新下载：https://juij.eu.org/#UEVR");
 
     if (ImGui::CollapsingHeader("Licenses")) {
         ImGui::TreePush("Licenses");
@@ -1475,7 +1477,7 @@ bool Framework::initialize() {
     }
 
     if (m_is_d3d11) {
-        spdlog::info("Attempting to initialize DirectX 11");
+        spdlog::info("A尝试初始化 DirectX 11");
 
         if (!m_d3d11_hook->is_hooked()) {
             return false;
@@ -1488,13 +1490,13 @@ bool Framework::initialize() {
         if (device == nullptr || swap_chain == nullptr) {
             m_first_initialize = true;
 
-            spdlog::info("Device or SwapChain null. DirectX 12 may be in use. Unhooking D3D11...");
+            spdlog::info("设备或 SwapChain 为空，可能正在使用 DirectX 12，取消挂钩 D3D11...");
 
             // We unhook D3D11
             if (m_d3d11_hook->unhook()) {
-                spdlog::info("D3D11 unhooked!");
+                spdlog::info("D3D11 脱钩了！");
             } else {
-                spdlog::error("Cannot unhook D3D11, this might crash.");
+                spdlog::error("无法取消挂钩 D3D11，这可能会崩溃。");
             }
 
             m_is_d3d11 = false;
@@ -1502,7 +1504,7 @@ bool Framework::initialize() {
 
             // We hook D3D12
             if (!hook_d3d12()) {
-                spdlog::error("Failed to hook D3D12 after unhooking D3D11.");
+                spdlog::error("取消挂钩 D3D11 后无法挂钩 D3D12。");
             }
             return false;
         }
@@ -1516,8 +1518,8 @@ bool Framework::initialize() {
         m_wnd = swap_desc.OutputWindow;
 
 
-        spdlog::info("Window Handle: {0:x}", (uintptr_t)m_wnd);
-        spdlog::info("Initializing ImGui");
+        spdlog::info("Window 处理: {0:x}", (uintptr_t)m_wnd);
+        spdlog::info("初始化 ImGui");
 
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -1527,21 +1529,21 @@ bool Framework::initialize() {
         static const auto imgui_ini = (get_persistent_dir() / "imgui.ini").string();
         ImGui::GetIO().IniFilename = imgui_ini.c_str();
 
-        spdlog::info("Initializing ImGui Win32");
+        spdlog::info("初始化 ImGui Win32");
 
         if (!ImGui_ImplWin32_Init(m_wnd)) {
-            spdlog::error("Failed to initialize ImGui.");
+            spdlog::error("ImGui 初始化失败");
             return false;
         }
 
-        spdlog::info("Creating render target");
+        spdlog::info("创建渲染目标");
 
         if (!init_d3d11()) {
-            spdlog::error("Failed to init D3D11");
+            spdlog::error("初始化 D3D11 失败");
             return false;
         }
     } else if (m_is_d3d12) {
-        spdlog::info("Attempting to initialize DirectX 12");
+        spdlog::info("尝试初始化 DirectX 12");
 
         if (!m_d3d12_hook->is_hooked()) {
             return false;
@@ -1553,23 +1555,23 @@ bool Framework::initialize() {
         if (device == nullptr || swap_chain == nullptr) {
             m_first_initialize = true;
 
-            spdlog::info("Device: {:x}", (uintptr_t)device);
+            spdlog::info("设备: {:x}", (uintptr_t)device);
             spdlog::info("SwapChain: {:x}", (uintptr_t)swap_chain);
 
-            spdlog::info("Device or SwapChain null. DirectX 11 may be in use. Unhooking D3D12...");
+            spdlog::info("设备或 SwapChain 为空，可能正在使用 DirectX 11，取消挂钩 D3D12...");
 
             // We unhook D3D12
             if (m_d3d12_hook->unhook())
-                spdlog::info("D3D12 unhooked!");
+                spdlog::info("D3D12 脱钩了！");
             else
-                spdlog::error("Cannot unhook D3D12, this might crash.");
+                spdlog::error("无法取消挂钩 D3D12，这可能会崩溃。");
 
             m_valid = false;
             m_is_d3d12 = false;
 
             // We hook D3D11
             if (!hook_d3d11()) {
-                spdlog::error("Failed to hook D3D11 after unhooking D3D12.");
+                spdlog::error("取消挂钩 D3D12 后无法挂钩 D3D11。");
             }
             return false;
         }
@@ -1589,12 +1591,12 @@ bool Framework::initialize() {
         ImGui::GetIO().IniFilename = imgui_ini.c_str();
         
         if (!ImGui_ImplWin32_Init(m_wnd)) {
-            spdlog::error("Failed to initialize ImGui ImplWin32.");
+            spdlog::error("无法初始化 ImGui ImplWin32");
             return false;
         }
 
         if (!init_d3d12()) {
-            spdlog::error("Failed to init D3D12.");
+            spdlog::error("初始化 D3D12 失败");
             return false;
         }
     } else {

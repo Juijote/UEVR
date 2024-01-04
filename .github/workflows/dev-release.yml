@@ -15,8 +15,15 @@ jobs:
           token: ${{ secrets.UESDK_PULLER }}
           submodules: recursive
 
+      - name: Set Console Code Page to UTF-8
+        run: |
+          chcp 65001
+          set LANG=zh_CN.UTF-8
+          set LANGUAGE=zh_CN:zh:en_US:en
+          set LC_ALL=zh_CN.UTF-8
+
       - name: Configure CMake
-        run: cmake -S ${{github.workspace}} -B ${{github.workspace}}/build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -S ${{github.workspace}} -B ${{github.workspace}}/build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_CXX_FLAGS="-fexec-charset=UTF-8"
 
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target ${{matrix.target}}
