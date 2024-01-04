@@ -6,7 +6,9 @@ void ImGuiThemeHelper::StyleColorsDefaultDark() {
     
     ImGui::StyleColorsDark();
 
-    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+    // 显示中文
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
     
     // Unreal style by dev0-1 from ImThemes
     auto& style = ImGui::GetStyle();
@@ -102,7 +104,9 @@ void ImGuiThemeHelper::StyleColorsAlternativeDark() {
     
     ImGui::StyleColorsDark();
 
-    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+    // 显示中文
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
 
     auto& style = ImGui::GetStyle();
     
@@ -172,8 +176,10 @@ void ImGuiThemeHelper::StyleColorsHighContrast() {
     
     ImGui::StyleColorsDark();
 
-    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
-    
+    // 显示中文
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
+
     auto& style = ImGui::GetStyle();
     
     // Enemymouse style by enemymouse from ImThemes

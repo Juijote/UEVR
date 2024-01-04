@@ -24,7 +24,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2.3.1
         with:
-          name: ${{matrix.target}}
+          name: ${{matrix.target}}-${{github.run_started}}
           path: ${{github.workspace}}/build/bin/${{matrix.target}}/*
           if-no-files-found: error
 
