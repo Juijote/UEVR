@@ -7,7 +7,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 
 #include <imgui.h>
-#include "uevr-imgui/font_robotomedium.hpp"
+#include "uevr-imgui/font_LXGWNeoZhiSongCHS.hpp"
 #include "uevr-imgui/imgui_impl_dx11.h"
 #include "uevr-imgui/imgui_impl_dx12.h"
 #include "uevr-imgui/imgui_impl_win32.h"
