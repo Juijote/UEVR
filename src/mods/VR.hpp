@@ -106,7 +106,10 @@ public:
     void on_draw_ui() override;
     void on_draw_sidebar_entry(std::string_view name) override;
     void on_pre_imgui_frame() override;
+
+    void handle_keybinds();
     void on_frame() override;
+
     void on_present() override;
     void on_post_present() override;
 
@@ -231,7 +234,17 @@ public:
     }
 
     bool is_hmd_active() const {
-        return get_runtime()->ready() || (m_stereo_emulation_mode && get_runtime()->loaded);
+        if (m_disable_vr) {
+            return false;
+        }
+
+        auto runtime = get_runtime();
+
+        if (runtime == nullptr) {
+            return false;
+        }
+
+        return runtime->ready() || (m_stereo_emulation_mode && runtime->loaded);
     }
 
     auto get_hmd() const {
@@ -805,6 +818,10 @@ private:
     const ModKey::Ptr m_keybind_load_camera_1{ ModKey::create(generate_name("LoadCamera1Key")) };
     const ModKey::Ptr m_keybind_load_camera_2{ ModKey::create(generate_name("LoadCamera2Key")) };
 
+    const ModKey::Ptr m_keybind_toggle_2d_screen{ ModKey::create(generate_name("Toggle2DScreenKey")) };
+    const ModKey::Ptr m_keybind_disable_vr{ ModKey::create(generate_name("DisableVRKey")) };
+    bool m_disable_vr{false}; // definitely should not be persistent
+
     struct DecoupledPitchData {
         mutable std::shared_mutex mtx{};
         glm::quat pre_flattened_rotation{};
@@ -875,6 +892,8 @@ private:
         *m_keybind_load_camera_0,
         *m_keybind_load_camera_1,
         *m_keybind_load_camera_2,
+        *m_keybind_toggle_2d_screen,
+        *m_keybind_disable_vr,
     };
     
 
