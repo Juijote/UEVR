@@ -14,12 +14,12 @@
 #include <utility/PointerHook.hpp>
 
 void nullify_openxr(HMODULE game) {
-    std::cout << "[VR Plugin Nullifier] Scanning for openxr_loader.dll" << std::endl;
+    std::cout << "[VR Plugin Nullifier] 正在扫描 openxr_loader.dll" << std::endl;
 
     const auto openxr_string = utility::scan_string(game, "openxr_loader.dll");
 
     if (!openxr_string) {
-        std::cout << "[VR Plugin Nullifier] openxr_loader.dll string not found" << std::endl;
+        std::cout << "[VR Plugin Nullifier] openxr_loader.dll 未找到字符串" << std::endl;
         return;
     }
 
@@ -34,16 +34,16 @@ void nullify_openxr(HMODULE game) {
     openxr_string_chars[openxr_string_view.size() - 2] = 'u';
     openxr_string_chars[openxr_string_view.size() - 1] = 'l';
 
-    std::cout << "[VR Plugin Nullifier] openxr_loader.dll string patched" << std::endl;
+    std::cout << "[VR Plugin Nullifier] openxr_loader.dll 字符串已修补" << std::endl;
 }
 
 void nullify_openvr(HMODULE game) {
-    std::cout << "[VR Plugin Nullifier] Scanning for openvr_api.dll" << std::endl;
+    std::cout << "[VR Plugin Nullifier] 正在扫描 openvr_api.dll" << std::endl;
 
     const auto openvr_string = utility::scan_string(game, "openvr_api.dll");
 
     if (!openvr_string) {
-        std::cout << "[VR Plugin Nullifier] openvr_api.dll string not found" << std::endl;
+        std::cout << "[VR Plugin Nullifier] openvr_api.dll 未找到字符串" << std::endl;
         return;
     }
 
@@ -58,7 +58,7 @@ void nullify_openvr(HMODULE game) {
     openvr_string_chars[openvr_string_view.size() - 2] = 'u';
     openvr_string_chars[openvr_string_view.size() - 1] = 'l';
 
-    std::cout << "[VR Plugin Nullifier] openvr_api.dll string patched" << std::endl;
+    std::cout << "[VR Plugin Nullifier] openvr_api.dll 字符串已修补" << std::endl;
 }
 
 extern "C" __declspec(dllexport) bool g_finished = false;
@@ -68,7 +68,7 @@ extern "C" __declspec(dllexport) void nullify() try {
     //AllocConsole();
     //freopen("CONOUT$", "w", stdout);
 
-    printf("Hello\n");
+    printf("你好\n");
 
     const auto game = utility::get_executable();
 
@@ -77,7 +77,7 @@ extern "C" __declspec(dllexport) void nullify() try {
 
     g_finished = true;
 } catch(...) {
-    std::cout << "[VR Plugin Nullifier] Exception thrown" << std::endl;
+    std::cout << "[VR Plugin Nullifier] 出现异常" << std::endl;
     g_finished = true;
 }
 

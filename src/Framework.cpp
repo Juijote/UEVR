@@ -1150,35 +1150,35 @@ void Framework::draw_ui() {
     }
 
     ImGui::SetNextWindowSize(ImVec2(window_w, window_h), ImGuiCond_::ImGuiCond_Once);
-    ImGui::Begin("UEVR", &m_draw_ui);
+    ImGui::Begin("UEVR - 通用虚幻擎(4&5) VR 模组 beta v1.01 [Juij 汉化] [2024-01-04]", &m_draw_ui);
 
     ImGui::BeginGroup();
     ImGui::Columns(2);
     ImGui::BeginGroup();
 
-    ImGui::Checkbox("Transparency", &m_ui_option_transparent);
+    ImGui::Checkbox("透明度", &m_ui_option_transparent);
     ImGui::SameLine();
     ImGui::Text("(?)");
     if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Makes the UI transparent when not focused.");
+        ImGui::SetTooltip("未聚焦时使 UI 透明");
     }
-    ImGui::Checkbox("Input Passthrough", &m_ui_passthrough);
+    ImGui::Checkbox("输入直通", &m_ui_passthrough);
     ImGui::SameLine();
     ImGui::Text("(?)");
     if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Allows mouse and keyboard inputs to register to the game while the UI is focused.");
+        ImGui::SetTooltip("允许在 UI 聚焦时将鼠标和键盘输入直通到游戏中");
     }
 
-    FrameworkConfig::get()->get_advanced_mode()->draw("Show Advanced Options");
+    FrameworkConfig::get()->get_advanced_mode()->draw("显示高级选项");
 
     ImGui::SameLine();
     ImGui::Text("(?)");
     if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Show additional options for greater control over various settings.");
+        ImGui::SetTooltip("显示更多选项可以进行各种设置");
     }
 
     if (m_mods_fully_initialized) {
-        if (ImGui::Button("Reset to Default Settings")) {
+        if (ImGui::Button("重置为默认设置")) {
             reset_config();
         }
     }
@@ -1187,10 +1187,10 @@ void Framework::draw_ui() {
     ImGui::NextColumn();
 
     ImGui::BeginGroup();
-    ImGui::Text("Keyboard Menu Key: Insert");
-    ImGui::Text("Gamepad L3 + R3: Toggle Menu");
-    ImGui::Text("Gamepad RT: Shortcuts");
-    ImGui::Text("Gamepad LB/RB: Change Sidebar Page");
+    ImGui::Text("菜单键: 注入");
+    ImGui::Text("手柄 L3 + R3: 切换菜单");
+    ImGui::Text("手柄 RT: 快捷方式");
+    ImGui::Text("手柄 LB/RB: 更改侧边栏页面");
 
     ImGui::EndGroup();
     ImGui::EndGroup();
@@ -1200,16 +1200,16 @@ void Framework::draw_ui() {
     // Mods:
     auto& sidebar_entries = m_sidebar_state.entries;
     sidebar_entries.clear();
-    sidebar_entries.emplace_back("About", false);
+    sidebar_entries.emplace_back("关于", false);
 
-    if (ImGui::BeginTable("UEVRTable", 2, ImGuiTableFlags_::ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_::ImGuiTableFlags_BordersOuterV | ImGuiTableFlags_::ImGuiTableFlags_SizingFixedFit)) {
-        ImGui::TableSetupColumn("UEVRLeftPaneColumn", ImGuiTableColumnFlags_WidthFixed, 150.0f);
-        ImGui::TableSetupColumn("UEVRRightPaneColumn", ImGuiTableColumnFlags_WidthStretch);
+    if (ImGui::BeginTable("UEVR 列表", 2, ImGuiTableFlags_::ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_::ImGuiTableFlags_BordersOuterV | ImGuiTableFlags_::ImGuiTableFlags_SizingFixedFit)) {
+        ImGui::TableSetupColumn("UEVR 左栏位置", ImGuiTableColumnFlags_WidthFixed, 150.0f);
+        ImGui::TableSetupColumn("UEVR 左栏位置", ImGuiTableColumnFlags_WidthStretch);
 
         ImGui::TableNextRow();
         ImGui::TableSetColumnIndex(0); // Set to the first column
 
-        ImGui::BeginChild("UEVRLeftPane", ImVec2(0, 0), true);
+        ImGui::BeginChild("UEVR 左栏位置", ImVec2(0, 0), true);
         auto dcs = [&](const char* label, int32_t page_value) -> bool {
             ImGui::PushStyleVar(ImGuiStyleVar_SelectableTextAlign, ImVec2(0.5f, 0.5f));
             if (ImGui::Selectable(label, m_sidebar_state.selected_entry == page_value)) {
@@ -1221,7 +1221,7 @@ void Framework::draw_ui() {
             return false;
         };
 
-        dcs("About", 0);
+        dcs("关于", 0);
 
         if (m_error.empty() && m_game_data_initialized) {
             struct Info {
