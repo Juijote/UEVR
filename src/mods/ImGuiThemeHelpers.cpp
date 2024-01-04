@@ -8,7 +8,7 @@ void ImGuiThemeHelper::StyleColorsDefaultDark() {
 
     // 显示中文
     ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
+    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/msyh.ttc", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
     
     // Unreal style by dev0-1 from ImThemes
     auto& style = ImGui::GetStyle();
@@ -106,7 +106,7 @@ void ImGuiThemeHelper::StyleColorsAlternativeDark() {
 
     // 显示中文
     ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
+    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/msyh.ttc", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
 
     auto& style = ImGui::GetStyle();
     
@@ -178,7 +178,7 @@ void ImGuiThemeHelper::StyleColorsHighContrast() {
 
     // 显示中文
     ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/simhei.ttf", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
+    io.Fonts->AddFontFromFileTTF("c:/windows/fonts/msyh.ttc", 13.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon()); 
 
     auto& style = ImGui::GetStyle();
     
